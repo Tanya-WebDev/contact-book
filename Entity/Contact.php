@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
-use Doctrine\ORM\Mapping as ORM;
 use App\Validator\Constraints as NewAssert;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -52,6 +52,7 @@ class Contact
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email"
      * )
+     * @NewAssert\ForbiddenDomainZone
      */
     public string $email;
 
