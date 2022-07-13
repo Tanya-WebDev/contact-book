@@ -3,6 +3,7 @@ To start this projects on your locale machine you neeed to:
   1. clone the project to download its content:
   
       cd projects/
+      
       git clone ...
       
   2. give rights on the var folder
