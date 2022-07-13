@@ -15,6 +15,7 @@ To start this projects on your locale machine you neeed to:
   3. make Composer install the project's dependencies
   
      cd my-project/
+     
      docker-compose exec php composer install
      
   4. In the hosts file (/etc/hosts), specify local access by URL
