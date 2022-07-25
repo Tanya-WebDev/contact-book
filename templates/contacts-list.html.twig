@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My contact book - all contacts{% endblock %}
+
+{% block body %}
+    <table class="table table-success table-hover">
+        <thead>
+        <tr>
+            <th scope="col"><input type="checkbox" id="mainCheckbox"></th>
+            <th scope="col">id</th>
+            <th scope="col">Last name</th>
+            <th scope="col">First name</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Notes</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.lastName }}</td>
+                <td>{{ contact.firstName }}</td>
+                <td>{{ contact.phoneNumber }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.notes }}</td>
+                <td>
+                    <a href="#">Update contact</a>
+                    <br>
+                    <a href="#">Delete contact</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

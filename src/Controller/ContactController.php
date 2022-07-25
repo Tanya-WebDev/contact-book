@@ -36,11 +36,13 @@ class ContactController extends AbstractController
        $form = $this->createForm(ContactType::class);
        $form->handleRequest($request);
 
-       if($form->isSubmitted()){
+       if($form->isSubmitted() && $form->isValid()){
            $contact = ContactFactory::createFromForm($form);
            $this->contactRepository->save($contact);
 
            $this->addFlash('success', "User was successfully created!");
+
+           return $this->redirectToRoute('contacts');
        }
 
        return $this->renderForm('form.html.twig', [
@@ -48,4 +50,15 @@ class ContactController extends AbstractController
        ]);
     }
 
+    /**
+     * @Route("/contacts", name="contacts")
+     */
+    public function contactsList()
+    {
+        $contacts = $this->contactRepository->findAll();
+
+        return $this->render("contacts-list.html.twig", [
+            'contacts' => $contacts,
+        ]);
+    }
 }
