@@ -2,37 +2,60 @@
 
 {% block title %}My contact book - all contacts{% endblock %}
 
+{% block navigation %}
+    <div class="row">
+        <div class="col d-flex justify-content-end" style="margin: 30px 0">
+            <a href="{{ path("createContact") }}">Add new contact</a>
+        </div>
+    </div>
+{% endblock %}
+
 {% block body %}
-    <table class="table table-success table-hover">
-        <thead>
-        <tr>
-            <th scope="col"><input type="checkbox" id="mainCheckbox"></th>
-            <th scope="col">id</th>
-            <th scope="col">Last name</th>
-            <th scope="col">First name</th>
-            <th scope="col">Phone number</th>
-            <th scope="col">E-mail</th>
-            <th scope="col">Notes</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for contact in contacts %}
+    <form action="{{ path("massDelete") }}" method="post">
+        <table class="table table-success table-hover">
+            <thead>
             <tr>
-                <td><input type="checkbox"></td>
-                <td>{{ contact.id }}</td>
-                <td>{{ contact.lastName }}</td>
-                <td>{{ contact.firstName }}</td>
-                <td>{{ contact.phoneNumber }}</td>
-                <td>{{ contact.email }}</td>
-                <td>{{ contact.notes }}</td>
-                <td>
-                    <a href="#">Update contact</a>
-                    <br>
-                    <a href="#">Delete contact</a>
-                </td>
+                <th scope="col"><input type="checkbox" onclick="toggle(this)"></th>
+                <th scope="col">id</th>
+                <th scope="col">Last name</th>
+                <th scope="col">First name</th>
+                <th scope="col">Phone number</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Action</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td><input type="checkbox" name="contact_ids[]" value={{ contact.id }}></td>
+                    <td>{{ contact.id }}</td>
+                    <td>{{ contact.lastName }}</td>
+                    <td>{{ contact.firstName }}</td>
+                    <td>{{ contact.phoneNumber }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.notes }}</td>
+                    <td>
+                        <a href="{{ path("contactId", {id: contact.id}) }}">View contact</a>
+                        <br>
+                        <a href="{{ path("updateContact", {id: contact.id}) }}">Update contact</a>
+                        <br>
+                        <a href="{{ path("deleteContact", {id: contact.id}) }}">Delete contact</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" value="Delete all" class="btn btn-danger">
+    </form>
+    <script>
+        function toggle(source) {
+            let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (let i=0; i < checkboxes.length; i++) {
+                if (checkboxes[i] !== source) {
+                    checkboxes[i].checked = source.checked;
+                }
+            }
+        }
+    </script>
 {% endblock %}
